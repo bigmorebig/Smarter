@@ -1,0 +1,101 @@
+- config:
+    name: 我的内容-编辑内容（新建）
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+      - auditStatus: [-1,0,1,2,3]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#调用地图接口
+- test:
+    name: map
+    request:
+        url: http://api.map.baidu.com/geocoder/v2/
+        method: GET
+        params:
+            ak: rGLGeZMsCy9IeKm4FkNwlZWEmny6SmAe
+            location: 30.674636,104.062425
+            output: json
+            pois: 1
+            callback: __jp3
+    extract:
+        - map_content: content
+
+#我的内容-编辑内容（新建)-语音
+- test:
+    name: culture_cloud_content-1
+    variables:
+        address: '羊西线东门街槐树街1号'
+        areaId: 'b533ea4ac412b7404f6d46c4'
+        auditStatus: $auditStatus
+        channelIdList:
+        content:
+        createBy: 'afa89236224045cb957a7c842278c362'
+        description: ${rand_many_key(10)}
+        image: "f367430d58734dd683b0b891eec25a28.jpeg"
+        keywords: ${rand_many_key(20)}
+        latitude: 30.674636
+        longitude: 104.062425
+        resourceKey: 'PAAFPK18I1APTVV3WP7NDZE36I4QMYBT'
+        scenicId: ''
+        option_id: "23970"
+        name: "守经街红楼"
+        option_type: 1
+        title: ${rand_many_key(20)}
+        type: 1
+    api: api_v1_culture_cloud_content_POST($address,$areaId,$auditStatus,$channelIdList,$content,$createBy,$description,$image,$keywords,$latitude,$longitude,$resourceKey,$scenicId,$option_id,$name,$option_type,$title,type)
+
+#我的内容-编辑内容（新建)-视频
+- test:
+    name: culture_cloud_content-2
+    variables:
+        address: '羊西线东门街槐树街1号'
+        areaId: 'b533ea4ac412b7404f6d46c4'
+        auditStatus: $auditStatus
+        channelIdList:
+        content: ${rand_many_key(50)}
+        createBy: 'afa89236224045cb957a7c842278c362'
+        description: ${rand_many_key(10)}
+        image: "f367430d58734dd683b0b891eec25a28.jpeg"
+        keywords: ${rand_many_key(20)}
+        latitude: 30.674636
+        longitude: 104.062425
+        resourceKey: 'YT7BL7JC6B8Z8CBEWOV1UMNFMX2ZFHF4'
+        scenicId: ''
+        option_id: "23970"
+        name: "守经街红楼"
+        option_type: 1
+        title: ${rand_many_key(20)}
+        type: 2
+    api: api_v1_culture_cloud_content_POST($address,$areaId,$auditStatus,$channelIdList,$content,$createBy,$description,$image,$keywords,$latitude,$longitude,$resourceKey,$scenicId,$option_id,$name,$option_type,$title,type)
+
+#我的内容-编辑内容（新建)-图文
+- test:
+    name: culture_cloud_content-3
+    variables:
+        address: '羊西线东门街槐树街1号'
+        areaId: 'b533ea4ac412b7404f6d46c4'
+        auditStatus: $auditStatus
+        channelIdList:
+        content: ${rand_many_key(50)}
+        createBy: 'afa89236224045cb957a7c842278c362'
+        description: ${rand_many_key(10)}
+        image: "f367430d58734dd683b0b891eec25a28.jpeg"
+        keywords: ${rand_many_key(20)}
+        latitude: 30.674636
+        longitude: 104.062425
+        resourceKey:
+        scenicId: ''
+        option_id: "23970"
+        name: "守经街红楼"
+        option_type: 1
+        title: ${rand_many_key(20)}
+        type: 3
+    api: api_v1_culture_cloud_content_POST($address,$areaId,$auditStatus,$channelIdList,$content,$createBy,$description,$image,$keywords,$latitude,$longitude,$resourceKey,$scenicId,$option_id,$name,$option_type,$title,type)

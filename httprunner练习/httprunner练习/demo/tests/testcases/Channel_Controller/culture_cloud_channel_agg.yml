@@ -1,0 +1,54 @@
+- config:
+    name: 文化频道-编辑聚合
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+      - isOpen: [0,1]
+      - isRecommend: [0,1]
+      - needHistory: [true,false]
+      - isAllCloud: [true,false]
+      - isDisplayDescendants: [0,1]
+      - isRecommend: [0,1]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#文化频道-频道列表
+- test:
+    name: culture_cloud_channel
+    variables:
+        pageNo: 1
+        pageSize: 10
+        orderField: create_time
+        direction: desc
+        parentId:
+        type:
+        isOpen: $isOpen
+        isRecommend: $isRecommend
+        title:
+        needHistory: $needHistory
+        channelType:
+        isAllCloud: $isAllCloud
+    api: api_v1_culture_cloud_channel_GET($pageNo,$pageSize,$orderField,$direction,$parentId,$type,$isOpen,$isRecommend,$title,$needHistory,$channelType,$isAllCloud)
+    extract:
+        - content: content
+        - list: content.result.list
+
+#文化频道-编辑聚合
+- test:
+    name: culture_cloud_channel_agg
+    skipIf: ${space_null($list)}
+    variables:
+        aggByDistance: true
+        aggByTag: true
+        aggDistance: ${rand_num(10)}
+        id: '23970'
+        name: '守经街红楼'
+        type: 1
+        channelId: ${rand_robot($content)}
+    api: api_v1_culture_cloud_channel_agg_POST($aggByDistance,$aggByTag,$aggDistance,$id,$name,$type,$channelId)

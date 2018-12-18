@@ -1,0 +1,66 @@
+- config:
+    name: 文化频道-频道列表
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+      - isOpen: [0,1]
+      - isRecommend: [0,1]
+      - needHistory: [true,false]
+      - isAllCloud: [true,false]
+      - isDisplayDescendants: [0,1]
+      - isRecommend: [0,1]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#文化频道-频道列表
+- test:
+    name: culture_cloud_channel
+    variables:
+        pageNo: 1
+        pageSize: 10
+        orderField: create_time
+        direction: desc
+        parentId:
+        type:
+        isOpen: $isOpen
+        isRecommend: $isRecommend
+        title:
+        needHistory: $needHistory
+        channelType:
+        isAllCloud: $isAllCloud
+    api: api_v1_culture_cloud_channel_GET($pageNo,$pageSize,$orderField,$direction,$parentId,$type,$isOpen,$isRecommend,$title,$needHistory,$channelType,$isAllCloud)
+    extract:
+        - content: content
+
+#文化频道-编辑频道（新建）
+- test:
+    name: culture_cloud_channel_add
+    variables:
+        addressDetail: '羊西线东门街槐树街1号'
+        aggByDistance: true
+        aggByTag: true
+        aggDistance: 1
+        option_id: '23970'
+        name: '守经街红楼'
+        option_type: 1
+        areaId: 'b533ea4ac412b7404f6d46c4'
+        autograph: ${rand_many_key(10)}
+        channelTypeId: ${rand_channel_type_id($content)}
+        description: ${rand_many_key(50)}
+        image: 'd8ffcde225ab4cabb2274f239c445c7c.jpep'
+        isDisplayDescendants: $isDisplayDescendants
+        isRecommend: $isRecommend
+        latitude: 30.674636
+        longitude: 104.062425
+        parentId: '0'
+        channel_id: ${rand_robot($content)}
+        channel_title: ${rand_channel_title($content)}
+        sortNum: 1
+        title: ${rand_many_key(15)}
+    api: api_v1_culture_cloud_add_POST($addressDetail,$aggByDistance,$aggByTag,$aggDistance,$option_id,$name,$option_type,$areaId,$autograph,$channelTypeId,$description,$image,$isDisplayDescendants,$isRecommend,$latitude,$longitude,$parentId,$channel_id,$channel_title,$sortNum,$title)

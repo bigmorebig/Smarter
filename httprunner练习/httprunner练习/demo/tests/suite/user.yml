@@ -1,0 +1,25 @@
+- config:
+    name: Login
+    def: login_suite()
+    variable_binds: {"account": "test_ff5","password": 123456}
+    request:
+      base_url: http://restapi-test1.fishsaying.com
+ #用户登录
+- test:
+    name: login
+    api: api_v1_account_login_POST($account, $password)
+
+#获取用户拥有的专有云
+- test:
+    name: user_cloud
+    api: api_v1_user_cloud_GET()
+
+#文化云登录
+- test:
+    name: cloud_login
+    api: api_v1_cloud_login_POST($cloudId)
+
+#文化云登录状态
+- test:
+    name: login_status
+    api: api_v1_cloud_status_GET()

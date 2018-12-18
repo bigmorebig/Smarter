@@ -1,0 +1,130 @@
+#机器人知识库- 新增
+- api:
+    def: api_v1_robot_knowledges_add_POST($articleContent,$articleTitle,$content,$dataContentId,$type,$question,$robotId,$sameQuestions)
+    request:
+        url: /cultural-cloud/robot/knowledges
+        method: POST
+        json:
+          {
+              "answers": [
+              {
+                  "articleContent": $articleContent,
+                  "articleTitle": $articleTitle,
+                  "content": $content,
+                  "dataContentId": $dataContentId,
+#                  "id": $id,
+                  "type": $type
+              }
+              ],
+#              "id": $id,
+              "question": $question,
+              "robotId": $robotId,
+              "sameQuestions": [
+                  $sameQuestions
+              ]
+          }
+    validate:
+      - eq: [content.success,true]
+
+#机器人知识库- 更新
+- api:
+    def: api_v1_robot_knowledges_put_PUT($articleContent,$articleTitle,$content,$dataContentId,$anwser_id,$type,$id,$question,$robotId,$sameQuestions)
+    request:
+        url: /cultural-cloud/robot/knowledges
+        method: PUT
+        json:
+          {
+              "answers": [
+              {
+                  "articleContent": $articleContent,
+                  "articleTitle": $articleTitle,
+                  "content": $content,
+                  "dataContentId": $dataContentId,
+                  "id": $anwser_id,
+                  "type": $type
+              }
+              ],
+              "id": $id,
+              "question": $question,
+              "robotId": $robotId,
+              "sameQuestions": [
+                  $sameQuestions
+              ]
+          }
+    validate:
+      - eq: [content.success,true]
+
+#推荐问题添加
+- api:
+    def: api_v1_robot_knowledges_add_question_POST($knowledgesId,$robotId)
+    request:
+        url: /cultural-cloud/robot/knowledges/add/question
+        method: POST
+        json:
+            knowledgesId: [
+                $knowledgesId
+            ]
+            robotId: $robotId
+    validate:
+      - eq: [content.success,true]
+
+#机器人知识库-详情
+- api:
+    def: api_v1_robot_knowledges_detail_GET($id)
+    request:
+        url: /cultural-cloud/robot/knowledges/details
+        method: GET
+        params:
+            id: $id
+    validate:
+      - eq: [content.success,true]
+
+#机器人知识库列表
+- api:
+    def: api_v1_robot_knowledges_list_GET($pageNo,$pageSize,$keyWord,$aiId)
+    request:
+        url: /cultural-cloud/robot/knowledges/list
+        method: GET
+        params:
+            pageNo: $pageNo
+            pageSize: $pageSize
+            keyWord: $keyWord
+            aiId: $aiId
+
+    validate:
+      - eq: [content.success,true]
+
+#推荐问题删除
+- api:
+    def: api_v1_robot_knowledges_question_delete_DELETE($id)
+    request:
+        url: /cultural-cloud/robot/knowledges/question/$id
+        method: DELETE
+        params:
+            id: $id
+    validate:
+      - eq: [content.success,true]
+
+#推荐问题列表
+- api:
+    def: api_v1_robot_knowledges_recommend_list_GET($pageNo,$pageSize,$keyWord,$aiId)
+    request:
+        url: /cultural-cloud/robot/knowledges/recommend/list
+        method: GET
+        params:
+            pageNo: $pageNo
+            pageSize: $pageSize
+            keyWord: $keyWord
+            aiId: $aiId
+    validate:
+      - eq: [content.success,true]
+
+#机器人知识库删除
+- api:
+    def: api_v1_robot_knowledges_delete_DELETE($id)
+    request:
+        url: /cultural-cloud/robot/knowledges/$id
+        method: DELETE
+    validate:
+      - eq: [content.success,true]
+

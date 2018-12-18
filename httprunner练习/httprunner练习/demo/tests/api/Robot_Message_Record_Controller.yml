@@ -1,0 +1,14 @@
+#机器人消息记录- 列表
+- api:
+    def: api_v1_robot_msg_list_POST($pageNo,$pageSize,$id,$type,$keyword)
+    request:
+        url: /cultural-cloud/robot/message/list
+        method: POST
+        params:
+            pageNo: $pageNo
+            pageSize: $pageSize
+            id: $id
+            type: $type
+            keyword: $keyword
+    validate:
+      - eq: [content.success,true]

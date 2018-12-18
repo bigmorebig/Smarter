@@ -1,0 +1,45 @@
+- config:
+    name: 机器人知识库-新增
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#机器人- 列表
+- test:
+    name: robot_list
+    variables:
+        pageNo: 1
+        pageSize: 20
+        searchType: 1
+        keyWord:
+    api: api_v1_robot_list_GET($pageNo, $pageSize,$searchType,$keyWord)
+    extract:
+      - list_content: content
+      - list_result: content.result.list
+
+#知识库列表
+- test:
+    name: robot_knowledges_list
+    variables:
+        pageNo: 1
+        pageSize: 10
+        keyWord:
+        aiId: ${rand_robot($list_content)}
+    api: api_v1_robot_knowledges_list_GET($pageNo,$pageSize,$keyWord,$aiId)
+    extract:
+      - knowledge_content: content
+
+#机器人知识库删除
+- test:
+    name: robot_knowledges_delete
+    variables:
+        id: ${rand_knowledge_id($knowledge_content)}
+    api: api_v1_robot_knowledges_delete_DELETE($id)

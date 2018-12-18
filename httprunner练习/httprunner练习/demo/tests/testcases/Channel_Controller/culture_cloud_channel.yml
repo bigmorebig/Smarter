@@ -1,0 +1,36 @@
+- config:
+    name: 文化频道-频道列表
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+      - direction: ['desc','asc']
+      - isOpen: [0,1]
+      - isRecommend: [0,1]
+      - needHistory: [true,false]
+      - isAllCloud: [true,false]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#文化频道-频道列表
+- test:
+    name: culture_cloud_channel
+    variables:
+        pageNo: 1
+        pageSize: 10
+        orderField: create_time
+        direction: $direction
+        parentId:
+        type:
+        isOpen: $isOpen
+        isRecommend: $isRecommend
+        title:
+        needHistory: $needHistory
+        channelType:
+        isAllCloud: $isAllCloud
+    api: api_v1_culture_cloud_channel_GET($pageNo,$pageSize,$orderField,$direction,$parentId,$type,$isOpen,$isRecommend,$title,$needHistory,$channelType,$isAllCloud)

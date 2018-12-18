@@ -1,0 +1,32 @@
+- config:
+    name: 我的内容-编辑内容（新建）
+    parameters:
+      - account-password:
+          - ["test_ff7", "123456"]
+      - direction: ['asc','desc']
+      - type: [1,2,3]
+      - contentType: [1,2,3]
+      - isAllCloud: [true,false]
+    request:
+        base_url: http://restapi-test1.fishsaying.com
+        headers:
+            User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.3(KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36
+
+- test:
+   name: Login
+   suite: login_suite()
+
+#内容小窗列表
+- test:
+    name: culture_cloud_allcloud
+    variables:
+        pageNo: 1
+        pageSize: 10
+        orderField: create_time
+        direction: $direction
+        type: $type
+        keyword:
+        contentType: $contentType
+        title:
+        isAllCloud: $isAllCloud
+    api: api_v1_culture_cloud_list_GET($pageNo,$pageSize,$orderField,$direction,$type,$keyword,$contentType,$title,$isAllCloud)
