@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>TEST REPORT</title>
+    <meta name="generator" content="BSTestRunner 0.8.4"/>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    
+<style type="text/css" media="screen">
+
+/* -- css div popup ------------------------------------------------------------------------ */
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #99CCFF;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 10pt;
+    width: 500px;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+
+#show_detail_line .label {
+    font-size: 85%;
+    cursor: pointer;
+}
+
+#show_detail_line {
+    margin: 2em auto 1em auto;
+}
+
+#total_row  { font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+</style>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class="container">
+    <div class='heading'>
+<h1>TEST REPORT</h1>
+<p><strong>Start Time:</strong> 2018-12-28 09:00:01</p>
+<p><strong>Duration:</strong> 0:00:02.180118</p>
+<p><strong>Status:</strong> <span class="text text-success">Pass <strong>1</strong></span> <span class="text text-warning">Error <strong>1</strong></span></p>
+
+<p class='description'>用例执行情况</p>
+</div>
+
+
+    
+<p id='show_detail_line'>
+<span class="label label-primary" onclick="showCase(0)">Summary</span>
+<span class="label label-danger" onclick="showCase(1)">Failed</span>
+<span class="label label-default" onclick="showCase(2)">All</span>
+</p>
+<table id='result_table' class="table">
+    <thead>
+        <tr id='header_row'>
+            <th>Test Group/Test case</td>
+            <th>Count</td>
+            <th>Pass</td>
+            <th>Fail</td>
+            <th>Error</td>
+            <th>View</td>
+        </tr>
+    </thead>
+    <tbody>
+        
+<tr class='text text-warning'>
+    <td>TestUnittest</td>
+    <td>2</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('c1',2)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='text text-success'><div class='testcase'>test_001</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: {'account': 'test_ff7', 'password': 123456}
+TestUnittest.py:15: DeprecationWarning: Please use assertEqual instead.
+  self.assertEquals(res['password'],123456,'测试失败')
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft1.2' class='text text-success'>
+    <td class='text text-warning'><div class='testcase'>test_002</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.2')" >
+        error</a>
+
+    <div id='div_ft1.2' class="popup_window">
+        <div style='text-align: right;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.2: {'account': 'test_ff7', 'password': 123456}
+TestUnittest.py:15: DeprecationWarning: Please use assertEqual instead.
+  self.assertEquals(res['password'],123456,'测试失败')
+Traceback (most recent call last):
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connection.py", line 171, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\util\connection.py", line 56, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\socket.py", line 748, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\http\client.py", line 1229, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\http\client.py", line 1275, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\http\client.py", line 1224, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\http\client.py", line 1016, in _send_output
+    self.send(msg)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\lib\http\client.py", line 956, in send
+    self.connect()
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connection.py", line 196, in connect
+    conn = self._new_conn()
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connection.py", line 180, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: &lt;urllib3.connection.HTTPConnection object at 0x000002DD7FFBF7F0&gt;: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\requests\adapters.py", line 445, in send
+    timeout=timeout
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\urllib3\util\retry.py", line 398, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='restapi-test1.fishsaying.comhttp', port=80): Max retries exceeded with url: //restapi-test1.fishsaying.com/sso/login/normal (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000002DD7FFBF7F0&gt;: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "TestUnittest.py", line 21, in test_002
+    res = run.run_method(url,'post',data)
+  File "E:\脚本\接口测试脚本\New_API\manage_data\Run_Request.py", line 30, in run_method
+    res = self.post_request(url,data,headers,data_form)
+  File "E:\脚本\接口测试脚本\New_API\manage_data\Run_Request.py", line 22, in post_request
+    r = self.s.post(self.base_url+url,data = data,headers = headers)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\requests\sessions.py", line 559, in post
+    return self.request('POST', url, data=data, json=json, **kwargs)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\requests\sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\requests\sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\当乐\AppData\Local\Programs\Python\Python37\Lib\site-packages\requests\adapters.py", line 513, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='restapi-test1.fishsaying.comhttp', port=80): Max retries exceeded with url: //restapi-test1.fishsaying.com/sso/login/normal (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000002DD7FFBF7F0&gt;: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+    </tbody>
+    <tfoot>
+        <tr id='total_row'>
+            <td>Total</td>
+            <td>2</td>
+            <td class="text text-success">1</td>
+            <td class="text text-danger">0</td>
+            <td class="text text-warning">1</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tfoot>
+</table>
+
+    <div id='ending'>&nbsp;</div>
+</div>
+
+</body>
+</html>
