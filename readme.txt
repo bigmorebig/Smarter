@@ -1,2 +1,2 @@
-1.New_API基于requests框架实现Python自动化测试框架，解决数据依赖问题
-2.httprunner练习基于httprunner开源框架实现接口自动化
+New_API基于requests框架实现Python自动化测试框架，解决数据依赖问题
+
