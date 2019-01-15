@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/tangxiao/文件/practice/New_API')
+sys.path.append('')
 from manage_data.exract_excel import ExtractExcel
 from manage_data.Run_Request import Run_Request
 from util.operation_excel import OperationExcel
