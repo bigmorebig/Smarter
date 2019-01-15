@@ -8,14 +8,14 @@ from mock_test import mock_test
 
 class TestUnittest(unittest.TestCase):
     def test_001(self):
-        url = 'http://restapi-test1.fishsaying.com/sso/login/normal'
+        url = ''
         data = {'account': 'test_ff7', 'password': 123456}
         res = mock_test(data,url,'post',data)
         print(res)
         self.assertEquals(res['password'],123456,'测试失败')
 
     def test_002(self):
-        url = 'http://restapi-test1.fishsaying.com/sso/login/normal'
+        url = ''
         data = {'account': 'test_ff7', 'password': 123456}
         run = Run_Request()
         res = run.run_method(url,'post',data)
