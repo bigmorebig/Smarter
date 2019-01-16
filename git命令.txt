@@ -1,6 +1,0 @@
-git init 	初始化仓库
-git add .	提交全部文件到暂存区
-git commit -m '提交原因'
-git remote add origin https://github.com/bigmorebig/Smarter.git   #第一次使用需提交
-git pull --rebase origin master   #第一次使用需提交
-git push -u origin master
