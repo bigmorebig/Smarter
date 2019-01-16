@@ -1,0 +1,35 @@
+git
+初始化仓库：git init
+添加文件到仓库中:1.git add 文件名
+			  2.git commit -m '提交文案'
+查看仓库运行情况:git status
+查看文件具体的修改内容：git diff 文件名
+查看仓库中最远到最近的详细提交日志：git log
+查看仓库中日志版本号和提交信息：git log --pretty=oneline(第一列为版本号，是一组16进制标示的SHA1数字，第二列为提交信息)
+在版本回退中，必须知道回退版本的版本号，用HEAD标示当前版本，可以HEAD^标示上一个版本，HEAD~100标示上100个版本
+版本回退：git reset --hard HEAD^(也可用版本号标示)，也可用这种方法回到任意一个版本
+查看仓库中的每一条命令：git reflog（可用此来找到版本号）
+版本库：工作区 中有一个隐藏目录.git就是版本库，其中最重要的是成为stage的暂存区，还有git自动创建的第一个分支master以及指向master的指针HEAD
+撤销文件修改：1.git checkout --文件名
+			如果自修改后还没有被放到暂存区，撤销后会回到版本库状态
+			已经添加到暂存区后，又做了修改，撤销后会回到暂存区状态
+			2.git reset HEAD 文件名(撤销后回到工作区)
+删除文件：rm 文件名（可将文件删除进版本库）
+		git rm 文件名(可将文件从版本库中删除)
+		git checkout -- 文件名（从版本库中恢复文件，注意空格）
+github仓库推送：git push -u origin master（第一次推送时需要加上-u参数，git不但会把本地的master分支内容推送到远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送就可以简化命令）
+分支管理：创建分支，并切换到该分支：git checkout -b 分支
+		查看分支:git branch（当前分支前会有一个*）
+		切换分支：git checkout 分支
+		合并分支：git merge 分支
+		删除分支:git branch -d 分支
+		git log --graph（可以查看分支合并图）
+		合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+		将当前工作存储：git stash(可用git stash list查看存储的条目)
+		恢复当前存储并删除存储库：git stash apply-->git stash drop
+							 或git stash pop
+		查看远程库信息：git remote(-v查看更详细信息)
+多人协作：1.git push origin 分支(推送自己的修改)
+		2.如果推送失败，是因为远程分支比本地更新，需要git pull来合并
+		3.如果git pull失败，因为没有指定本地dev分支与远程origin/dev分支的链接，设置dev与origin/dev链接（git branch --set-upstream-to 分支 origin/分支）
+		4.如果合并有冲突则解决冲突，再本地提交
