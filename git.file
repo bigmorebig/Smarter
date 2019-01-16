@@ -52,3 +52,4 @@ github仓库推送：git push -u origin master（第一次推送时需要加上-
 		公钥管理：1.可放在/home/git/.ssh/authorized_keys下
 				2.放在Gitosis
 		权限控制可用Gitolite管理
+删除远程分支：git push origin --delete 分支
