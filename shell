@@ -1,0 +1,18 @@
+shell
+输出结果:echo 
+定义关联数组：declare -A 数组名字
+			数组名字=([key1]=value1 [key2]=value2...)(注意以空格间隔)
+获取数组索引列表：例：echo ${!fruit_value[*]}
+使用别名：alias 命令='别名' 	例：alias install='sudo apt-get 
+							   install'(暂时生效)
+		可以将需要修改的别名写入~/.bashrc中，这样会永久生效
+		删除别名也可以在~/.bashrc中手动删除或者使用unalias 命令=别名
+		\可以忽略当前定义的别名
+获取终端信息：tput cols（获取行）
+		    tput lines（获取列）
+日期：date(打印当前时间,+%s打印纪元时间，-s设置当前时间，"+%d %B 
+	 %Y"设置时间格式，--date "时间格式" +%A显示星期，--date "时间格式" +%s将时间转换为纪元时间)
+	 时间格式：星期（%a,%A），月(%b,%B),日(%d),固定时间格式(%D),年(%y,%Y),小时(%H),分钟(%M),秒(%S),纪元(%s)
+调试脚本：跟踪调试:bash -x filename(sh -x filename)
+		部分调试:在脚本中使用set -x和set +x划定区域限制，只对在set区域内的运行
+		
