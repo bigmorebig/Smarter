@@ -1,0 +1,63 @@
+gitlab安装
+1.关闭防火墙：systemctl stop firewalld
+		 	 systemctl disable firewalld(关闭开启启动)
+2.关闭SELINUX并重启系统：vi /etc/sysconfig/selinux
+						SELINUX=disabled
+						reboot
+		重启后通过getenforce查看是否被禁用
+3.安装Omnibus Gitlab-ce package
+	(1)安装gitlab组件：yum install curl policycoreutils openssh-server openssh-clients postfixs
+	(2)配置YUM仓库:curl-sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script/rpm.sh | sudo bash
+	(3)启动postfix邮件服务:systemctl start postfix && systemctl enable postfix
+	(4)安装gitlab-ce社区版本：yum install -y gitlab-ce
+Omnibus Gitlab等相关配置初始化并完成安装:
+	1.证书创建与配置加载
+		 mkdir -p /etc/gitlab/ss
+		 openssl genrsa -out "/etc/gitlab/ssl/gitlab.example.com.key" 2048
+		 openssl req -new -key "/etc/gitlab/ssl/gitlab.example.com.key" -out "/etc/gitlab/ssl/gitlab.example.com.csr"
+		 openssl x509 -req -days 365 -in "/etc/gitlab/ssl/gitlab.example.com.csr" -signkey "/etc/gitlab/ssl/gitlab.example.com.key" -out "/etc/gitlab/ssl/gitlab.example.com.crt"
+		 openssl dhparam -out /etc/gitlab/ssl/dhparams.pem 2048
+		 chmod 600 *
+		 vim /etc/gitlab/gitlab.rb 
+		 	将external_url改为https
+		 	找到redirect_http_to_https，删除注释并修改为true
+		 	找到ssl_certificate，修改为gitlab.example.com
+		 	找到ssl_dhparam，添加/etc/gitlab/ssl/dhparams.pem
+	2.Nginx SSL代理服务设置
+	3.初始化Gitlab相关服务并完成安装
+		gitlab-ctl reconfigure
+		vim /var/opt/gitlab/nginx/conf/gitlab-http.conf
+			找到server_name,添加rewrite ^(.*)$ https://$host$ peranment;
+		gitlab-ctl restart
+		在Windows的c:\Windows\System32\drivers\etc\hosts下输入Linux的IP和gitlab域名
+
+Ansibe安装
+使用virtualenv隔离ansible与python，保证系统安全。
+下载python3.6： wget http://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz
+配置python安装环境：
+	./configure --prefix=/usr/local --with-ensurepip=install --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+	make && make altinstall
+为pip3.6制作软链接： ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip
+	pip install virtualenv
+	useradd deploy
+	su - deploy
+	virtualenv -p /usr/local/bin/python3.6 .py3-a2.5-env
+1.yum包安装：yum -y install ansible（容易与系统中其他python模块冲突）
+2.Git源代码安装：git clone https://github.com/ansible/ansible.git
+ansible配合virtualenv安装配置：
+	1.预先安装python3.6
+	2.安装virtualenv（pip install virtualenv）
+	3.创建ansible账户并安装python3.6版本virtualenv实例(useradd deploy && su - deploy)
+	virtualenv -p /usr/local/bin/python3 .py3-a2.5-env
+	4.Git源代码安装ansible2.5
+		cd /home/deploy/.py3-a2.5-env
+		git clone https://github.com/ansible/ansible.git
+		cd ansible && git checkout stable-2.5
+	5.加载python3.6 virtualenv环境
+		source /home/deploy/.py3-a2.5-env /bin/activate
+	6.安装ansible依赖包
+		pip install paramiko PyYAML jinja2
+	7.在python3.6虚拟环境下加载ansible2.5
+		source /home/deploy/.py3-a2.5-env/ansible/hacking/env-setup -q
+	8.验证ansible2.5
+	ansible --version
