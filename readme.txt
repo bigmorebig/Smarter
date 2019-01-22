@@ -1,2 +1,2 @@
-New_API基于requests框架实现Python自动化测试框架，解决数据依赖问题
+这个repository是专门存放笔记之用
 
