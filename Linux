@@ -159,5 +159,18 @@ Vim使用技巧：：r 文件名(将文件导入到光标所在位置)
  			  用户邮箱:/var/spool/mail/用户名/
  			  用户模板目录：/etc/skel/
  添加用户:useradd 用户名(-u指定UID，-d表示家目录，-c表示用户说明，-g表示初始组，-G表示附加组，-s指定shell)
- 添加密码：passwd 用户名
+ 添加密码：passwd 用户名(-S查询用户密码状态，仅超级用户可用；-l锁定用户；-u解锁用户--stdin接受字符串作为用户密码)
  用户默认文件:/etc/default/useradd/（用户默认值）
+ 修改用户信息：usermod [选项] 用户名(-u修改UID，-c修改用户说明，-G修改用户附加组，-L临时锁定用户，-U解锁用户锁定)
+ 修改用户密码状态：change -d 0 用户名(把修改时间归0，用户一登录必须就要修改密码)
+ 删除用户：userdel -r 用户名（删除用户时同时删除用户家目录）
+ 查看用户ID：id 用户名
+ 切换用户：su [选项] 用户名(-,切换用户的时候连带环境变量一起切换；-c，调用身份，仅执行一次用户的命令)
+ 添加用户组：groupadd [选项] 组名（-g指定组ID）
+修改用户组：groupmod [选项] 组名(-g修改组ID，-n修改组名)
+删除组：groupdel 组名
+查看分区知否支持ACL权限：dumpe2fs -h 分区（df -h查看分区）
+开启分区ACL权限：vi /etc/fstab（mount -o remount /重新挂载）
+查看ACL权限:getfacle 文件名
+设定ACL权限：setfacl -m 文件名
+给特定用户设定acl权限:setfacl -m u:用户名:权限大小 文件名(u代表用户,g代表组)
