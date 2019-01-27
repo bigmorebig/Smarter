@@ -56,3 +56,4 @@ github仓库推送：git push -u origin master（第一次推送时需要加上-
 git网页管理界面:gitk
 gitk设置中文编码:git config --global gui.encoding utf-8
 修改本地分支名字：git branch -m old_branch new_branch
+清除.idea的缓存:git rm -r --cached .idea
