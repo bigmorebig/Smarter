@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login
 
 # Create your views here.
-def loginview(request):
+def user_login(request):
     if request.method == 'POST':
         user_name = request.POST.get('username','')
         pass_word = request.POST.get('password','')
