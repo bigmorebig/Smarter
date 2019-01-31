@@ -92,3 +92,13 @@ dict常用函数：1.copy浅拷贝，修改拷贝之后的值，被拷贝对象�
 			2.fromkeys快速生成dict，前一个参数为一个可迭代对象，后者为value
 			3.setdefault首先查询dict中是否存在这个值，如果不存在，会将这个键值对加入dict
 			4.update传入一个可迭代对象，将这个可迭代对象与dict合并
+
+set集合：集合是一个无序的，无重复的对象，可用于去重，传递一个可迭代对象，frozenset与set相比，set是可以变的，可以添加删除数据，frozenset是不可变的，set的性能很高，采用哈希算法，时间复杂度为1，set能进行-，&,|在于其中的魔法函数
+set常用方法：add-添加值
+		   different-生成一个新的对象，与减的作用类似
+		   update-将两个set合并
+		   issubset-判断前一个set是否在后一个set中，是返回True，否返回False
+
+dict和list性能比较：dict查找的性能远远大于list，在list中随着list数据的增大 
+				  查找时间会增大，在dict中查找元素不会随着dict的增大而增大
+dict与set性能强大的原因：dict中的key或者set中的值必须是可hash的，可hash的意思就是不可变对象，str， fronzenset， tuple，都是可hash的，自己实现的类可以重载__hash__魔法函数，dict的存储空间花销大，但是查询快，dict的存储顺序和元素添加顺序有关（这个hash表中冲突有关）；添加数据有可能改变已有数据的顺序（这也和hash表中冲突有关）
