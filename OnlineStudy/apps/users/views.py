@@ -39,12 +39,6 @@ class LoginView(View):
 
 
 
-<<<<<<< HEAD
-
-
-
-
-=======
 class RegisterView(View):
     def get(self,request):
         register_form = RegisterForm()
@@ -60,4 +54,4 @@ class RegisterView(View):
             user_profile.email = user_name
             user_profile.password = make_password(pass_word)
             user_profile.save()
->>>>>>> c8537ab0a175a2b42fad4bccaaf69f239364abf9
+
