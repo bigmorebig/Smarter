@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from users.models import EmailVerifyRecord
 from OnlineStudy.settings import EMAIL_FROM
 
+
 def random_str(random_length=8):
     str = ''
     chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
@@ -16,7 +17,8 @@ def random_str(random_length=8):
         str += chars[random.randint(0, length)]
     return str
 
-def send_register(email,send_type='register'):
+
+def send_register_email(email,send_type='register'):
     email_recode = EmailVerifyRecord()
     code = random_str(16)
     email_recode.code = code
