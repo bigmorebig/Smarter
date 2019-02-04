@@ -108,3 +108,32 @@ Python内部优化机制：对于小整数或者小字符串，Python会建立�
 
 Python的垃圾回收机制：引用计数，当给一个变量赋了一个值时，Python解释器的计数器就加1，再赋予另一个变量时再加1，运用del语句时，执行一次计数器就减1，当计数器为0时，Python解释器就回收内存地址，在类中，垃圾回收机制会重载__del__魔法函数，可以定制回收机制
 一个经典的错误：在类中对于list或者dict指定默认值时，在引用这个类时，没有传递list或者dict的值，就有可能会改变默认值，这个默认值可以通过类.__init__.__defalut__查看，原因在于list或者dict可变且没有传递值
+property:作为python的动态属性，加上property作为装饰器，可以将函数转换为类的属性，这样可以在这个函数中加入特定的逻辑，而且作为类的属性来使用，也可以使用setter作为装饰器来修改动态属性中的值
+__getattr__:在查找不到属性的时候调用
+__getattribute__:在调用类属性的时候无条件调用这个魔法函数中，所以尽量少重写这个魔法函数
+属性描述符：在类中只要实现__get__,__set__,__delete__中的任意一个魔法函数，那么就实现了属性描述符，通过调用类的属性值，默认会先调用__set__中的函数，再调用__get__魔法函数，可以通过属性描述符来检查数据类型
+python类中的查找机制：
+	如果user是某个类的实例，那么user.age（以及等价的getattr(user,’age’)）
+	首先调用__getattribute__。如果类定义了__getattr__方法，
+	那么在__getattribute__抛出 AttributeError 的时候就会调用到__getattr__，
+	而对于描述符(__get__）的调用，则是发生在__getattribute__内部的。
+	user = User(), 那么user.age 顺序如下：
+
+	（1）如果“age”是出现在User或其基类的__dict__中， 且age是data descriptor， 那么调用其__get__方法, 否则
+
+	（2）如果“age”出现在user的__dict__中， 那么直接返回 obj.__dict__[‘age’]， 否则
+
+	（3）如果“age”出现在User或其基类的__dict__中
+
+	（3.1）如果age是non-data descriptor，那么调用其__get__方法， 否则
+
+	（3.2）返回 __dict__[‘age’]
+
+	（4）如果User有__getattr__方法，调用__getattr__方法，否则
+
+	（5）抛出AttributeError
+
+__new__魔法函数：是用来控制对象的生成过程，是在对象生成之前
+__init__魔法函数：是用来完善对象的，但是如果__new__不返回对象，则不会调用__init__方法
+
+元类编程：类其实是由type创建而成，python在创建类的时候，会首先查询metaclass，如果没有则查询父类中是否存在metaclass，如果不存在的情况下再通过type生成类，通过元类编程，可以将__new__重载在metaclass中，通过实现定义的一些规范来定义类的生成过程
