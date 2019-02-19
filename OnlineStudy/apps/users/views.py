@@ -42,8 +42,8 @@ class LoginView(View):
             return render(request, 'login.html', {'login_form':login_form})
 
 
-class ActiveView(View):
-    def post(self,request,active_code):
+class ActiveUserView(View):
+    def get(self, request, active_code):
         all_records = EmailVerifyRecord.objects.filter(code=active_code)
         if all_records:
             for records in all_records:
@@ -51,7 +51,9 @@ class ActiveView(View):
                 user = UserProfile.objects.get(email=email)
                 user.is_active = True
                 user.save()
-                return render(request, 'login.html')
+        else:
+            return render(request, 'active_fail.html')
+        return render(request, 'login.html')
 
 
 class RegisterView(View):
@@ -63,6 +65,8 @@ class RegisterView(View):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             user_name = request.POST.get('email', '')
+            if UserProfile.objects.filter(email=user_name):
+                return render(request, 'register.html', {'register_form':register_form,'msg': '用户已经存在'})
             pass_word = request.POST.get('password', '')
             user_profile = UserProfile()
             user_profile.username = user_name
