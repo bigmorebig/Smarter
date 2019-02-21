@@ -97,7 +97,7 @@ class ForgetPwdView(View):
             user = authenticate(username=email, password=passwd)
             if user is not None:
                 send_register_email(email, 'forget')
-                return render(request, 'send_success.html')
+                return render(request, 'forgetpwd.html',{'forget_form': forget_form,'msg':'链接已发送，请注意查收！'})
             else:
                 return render(request, 'forgetpwd.html',{'forget_form': forget_form,'msg':'邮箱或密码错误'})
         else:
