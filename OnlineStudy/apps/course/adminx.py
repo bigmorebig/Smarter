@@ -10,9 +10,9 @@ from .models import CourseResource
 
 
 class CourseAdmin():
-    list_display = ['name','desc','detail','degree','learn_times','stdents','fav_nums','image','click_nums','add_time']
-    search_fields = ['name','desc','detail','degree','stdents','fav_nums','image','click_nums']
-    list_filter = ['name','desc','detail','degree','learn_times','stdents','fav_nums','image','click_nums','add_time']
+    list_display = ['name','desc','detail','degree','learn_times','students','fav_nums','image','click_nums','add_time']
+    search_fields = ['name','desc','detail','degree','students','fav_nums','image','click_nums']
+    list_filter = ['name','desc','detail','degree','learn_times','students','fav_nums','image','click_nums','add_time']
 
 
 class LessonAdmin():

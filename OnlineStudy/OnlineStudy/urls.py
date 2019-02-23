@@ -38,4 +38,6 @@ urlpatterns = [
 
     # 配置上传文件的访问处理函数
     re_path(r'media/(?P<path>.*)',serve,{'document_root':MEDIA_ROOT}),
+    # 课程url配置
+    path(r'course/', include('course.urls',namespace='course')),
 ]
