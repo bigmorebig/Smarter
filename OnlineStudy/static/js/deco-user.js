@@ -141,7 +141,7 @@ $(function(){
 
     verify(
         [
-            {id: '#nick_name', tips: Dml.Msg.epNickName, require: true}
+            {id: '#nickname', tips: Dml.Msg.epNickName, require: true}
         ]
     );
     //保存个人资料
@@ -150,7 +150,7 @@ $(function(){
             $jsEditUserForm = $('#jsEditUserForm')
             verify = verifySubmit(
             [
-                {id: '#nick_name', tips: Dml.Msg.epNickName, require: true}
+                {id: '#nickname', tips: Dml.Msg.epNickName, require: true}
             ]
         );
         if(!verify){
@@ -168,8 +168,8 @@ $(function(){
                 _self.attr('disabled',true);
             },
             success: function(data) {
-                if(data.nick_name){
-                    _showValidateError($('#nick_name'), data.nick_name);
+                if(data.nickname){
+                    _showValidateError($('#nick_name'), data.nickname);
                 }else if(data.birday){
                    _showValidateError($('#birth_day'), data.birday);
                 }else if(data.address){

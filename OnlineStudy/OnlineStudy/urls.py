@@ -18,13 +18,13 @@ import xadmin
 from django.views.generic import TemplateView
 from django.views.static import serve
 
-from users.views import LoginView
-from users.views import RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView
+from users.views import LoginView,LogoutView,RegisterView,ActiveUserView,ForgetPwdView,ResetView,ModifyPwdView,IndexView
 from OnlineStudy.settings import MEDIA_ROOT
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('',TemplateView.as_view(template_name='index.html'),name='index'),
+    # path('index/',IndexView.as_view(),name='index'),
+    path('',IndexView.as_view(),name='index'),
     path('login/',LoginView.as_view(),name='login'),
     path('register/',RegisterView.as_view(),name='register'),
     path(r'captcha/', include('captcha.urls')),
@@ -38,6 +38,17 @@ urlpatterns = [
 
     # 配置上传文件的访问处理函数
     re_path(r'media/(?P<path>.*)',serve,{'document_root':MEDIA_ROOT}),
+
+    # re_path(r'static/(?P<path>.*)',serve,{'document_root':STATIC_ROOT}),
     # 课程url配置
     path(r'course/', include('course.urls',namespace='course')),
+
+    # 个人中心url配置
+    path(r'users/', include('users.urls',namespace='users')),
+    path('logout/',LogoutView.as_view(),name='logout'),
 ]
+
+# 全局404页面配置
+handler404 = 'users.views.pag_not_found'
+# 全局500页面配置
+handler500 = 'users.views.pag_error'

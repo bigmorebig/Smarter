@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+
 # Create your models here.
 
 
@@ -19,6 +20,7 @@ class CityDict(models.Model):
 class CourseOrg(models.Model):
     name = models.CharField(max_length=50,verbose_name='机构名称')
     desc = models.TextField(verbose_name='机构描述')
+    tag = models.CharField(default='全国知名',max_length=10,verbose_name='机构标签')
     categroy = models.CharField(max_length=20,choices=(('pxjg','培训机构'),('gr','个人'),('gx','高校')),verbose_name='机构类别',default='pxjg')
     click_nums = models.IntegerField(default=0,verbose_name='点击数')
     fav_num = models.IntegerField(default=0,verbose_name='收藏数')
@@ -37,6 +39,7 @@ class CourseOrg(models.Model):
         # 课程机构教师数量
         return  self.teacher_set.all().count()
 
+
     def __str__(self):
         return self.name
 
@@ -50,8 +53,10 @@ class Teacher(models.Model):
     point = models.CharField(max_length=50,verbose_name='教学特点')
     click_num = models.IntegerField(default=0, verbose_name='点击数')
     fav_num = models.IntegerField(default=0, verbose_name='收藏数')
+    age = models.IntegerField(default=18,verbose_name='年龄')
     image = models.ImageField(default='',upload_to='teacher/%Y/%m', verbose_name='头像', max_length=100)
     add_time = models.DateTimeField(default=datetime.now)
+    update_time = models.DateTimeField(default=datetime.now)
 
     class Meta:
         verbose_name = '教师'
@@ -59,3 +64,6 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_course_nums(self):
+        return self.course_set.all().count()

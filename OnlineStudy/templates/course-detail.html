@@ -45,7 +45,7 @@
 						</ul>
 						<div class="btns">
 							<div class="btn colectgroupbtn"  id="jsLeftBtn">
-                                  {% if has_fav_courses %}已收藏{% else %}收藏{% endif %}
+                                  收藏
                             </div>
                                 <div class="buy btn"><a style="color: white" href="{% url 'course:course_info' course.id %}">开始学习</a></div>
 						</div>
@@ -76,8 +76,8 @@
                             <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.course_org.image }}"/>
                         </a>
                     </div>
-					<a href="/company/14/">
-                        <h2 class="center" title="清华大学">{{ course.course_org.name }}</h2>
+					<a href="{% url 'org:org_home' course.course_org_id %}">
+                        <h2 class="center" title="{{ course.course_org.name }}">{{ course.course_org.name }}</h2>
                     </a>
 					<div class="btn  notlogin
 					     "data-favid="14" id="jsRightBtn">
