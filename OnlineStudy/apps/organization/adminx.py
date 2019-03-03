@@ -15,15 +15,15 @@ class CityDictAdmin():
 
 
 class CourseOrgAdmin():
-    list_display = ['name','desc','click_nums','fav_num','image','address','city','add_time']
-    search_fields = ['name','desc','click_nums','fav_num','image','address','city']
-    list_filter = ['name','desc','click_nums','fav_num','image','address','city','add_time']
+    list_display = ['name','desc','click_nums','fav_nums','image','address','city','add_time']
+    search_fields = ['name','desc','click_nums','fav_nums','image','address','city']
+    list_filter = ['name','desc','click_nums','fav_nums','image','address','city','add_time']
 
 
 class TeacherAdmin():
-    list_display = ['org','name','work_years','work_company','work_position','point','click_num','fav_num','update_time']
-    search_fields = ['org','name','work_years','work_company','work_position','point','click_num','fav_num']
-    list_filter = ['org','name','work_years','work_company','work_position','point','click_num','fav_num','add_time']
+    list_display = ['org','name','work_years','work_company','work_position','point','click_num','fav_nums','update_time']
+    search_fields = ['org','name','work_years','work_company','work_position','point','click_num','fav_nums']
+    list_filter = ['org','name','work_years','work_company','work_position','point','click_num','fav_nums','add_time']
 
 
 xadmin.site.register(CityDict,CityDictAdmin)

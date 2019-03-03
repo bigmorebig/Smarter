@@ -17,6 +17,7 @@ class OrgView(View):
         hot_orgs = all_orgs.order_by('-click_nums')[:3]
         all_citys = CityDict.objects.all()
         city_id = request.GET.get('city','')
+        hot_courses = Course.objects.all().order_by('-click_nums')[:2]
 
         # 课程机构搜索
         search_keywords = request.GET.get('keywords', '')
@@ -54,6 +55,7 @@ class OrgView(View):
             'categroy':categroy,
             'hot_orgs':hot_orgs,
             'sort':sort,
+            'hot_courses':hot_courses,
         })
 
 
@@ -78,6 +80,7 @@ class OrgHomeView(View):
         current_page = 'home'
         course_org = CourseOrg.objects.get(id=int(org_id))
         course_org.click_nums += 1
+        course_org.courses = course_org.get_course_nums()
         course_org.save()
         has_fav = False
         if request.user.is_authenticated:

@@ -65,11 +65,11 @@
                              </a>
                         </div>
                         <ul class="cont">
-                            <li class="first"><p class="pic9">课程数：<span>{{ course_org.courses }}</span></p><p class="c7">学习人数：<span>{{ course_org.students }}</span></p></li>
+                            <li class="first"><p class="pic9">课程数：<span>{{ course_org.get_course_nums }}</span></p><p class="c7">学习人数：<span>{{ course_org.students }}</span></p></li>
                             <li class="c8" style="padding-left:18px;">{{ course_org.address }}</li>
                             <li class="pic10" style="padding-left:18px;">经典课程：
-                                {% for hot_course in hot_orgs %}
-                                    <a href="/diary/19/">{{ hot_course.courses }}</a>
+                                {% for hot_course in hot_courses %}
+                                    <a href="{% url 'course:course_detail' hot_course.id %}">{{ hot_course.name }}</a>
                                 {% endfor %}
 
 
@@ -124,7 +124,7 @@
 				<input class="btn" type="text" id="jsStayBtn" value="立即咨询 >" />
             {% csrf_token %}
             </form>
-		</div>
+		</div>z
 
 		<div class="right companyrank layout">
 			<div class="head">授课机构排名</div>
@@ -133,7 +133,7 @@
  <dl class="des">
                     <dt class="num fl">{{ forloop.counter }}</dt>
                     <dd>
-                        <a href="{% url 'org:org_list'%}"><h1>{{ current.name }}</h1></a>
+                        <a href="{% url 'org:org_home' current.id%}"><h1>{{ current.name }}</h1></a>
                         <p>{{ current.address }}</p>
                     </dd>
                 </dl>
