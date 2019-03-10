@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from DjangoUeditor.models import UEditorField
 # Create your models here.
 from organization.models import CourseOrg,Teacher
 
@@ -9,7 +10,8 @@ class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg,verbose_name='课程机构',null=True,blank=True,on_delete=models.CASCADE)
     name = models.CharField(max_length=50,verbose_name='课程名')
     desc = models.CharField(max_length=300,verbose_name='课程描述')
-    detail = models.TextField(verbose_name='课程详情')
+    detail = models.Content=UEditorField(verbose_name='课程详情',width=600, height=300, imagePath="courses/ueditor/",
+                                         filePath="courses/ueditor/", default='')
     is_banner = models.BooleanField(default=False,verbose_name='是否为轮播图')
     teacher = models.ForeignKey(Teacher,verbose_name='讲师',null=True,blank=True,on_delete=models.CASCADE)
     degree = models.CharField(verbose_name='难度',choices=(('cj','初级'),('zj','中级'),('gj','高级')),max_length=2)
@@ -35,6 +37,7 @@ class Course(models.Model):
     def get_zj_nums(self):
         '''获取课程章节数'''
         return self.lesson_set.all().count()
+    get_zj_nums.short_description = '章节数'   # 动态将函数显示到xadmin列表中
 
     def get_learn_users(self):
         return self.usercourse_set.all()[:5]
@@ -43,6 +46,18 @@ class Course(models.Model):
         '''获取课程所有章节'''
         return self.lesson_set.all().all()
 
+    def go_to(self):
+        '''在xadmin中配置跳转链接'''
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='https://www.baidu.com'>跳转</>")
+    go_to.short_description = '跳转'
+
+
+# class BannerCourse(Course):
+#     class Meta:
+#         verbose_name = '轮播课程'
+#         verbose_name_plural = verbose_name
+#         proxy = True
 
 
 class Lesson(models.Model):

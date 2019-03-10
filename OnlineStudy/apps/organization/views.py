@@ -80,7 +80,6 @@ class OrgHomeView(View):
         current_page = 'home'
         course_org = CourseOrg.objects.get(id=int(org_id))
         course_org.click_nums += 1
-        course_org.courses = course_org.get_course_nums()
         course_org.save()
         has_fav = False
         if request.user.is_authenticated:

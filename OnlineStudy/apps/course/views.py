@@ -80,7 +80,7 @@ class CourseInfoView(LoginRequiredMixin,View):
         course.students += 1
         course.save()
 
-        #查询用户是否已经关联了该课程
+        # 查询用户是否已经关联了该课程
         user_courses = UserCourse.objects.filter(user=request.user,course=course)
         if not user_courses:
             user_course = UserCourse(user=request.user,course=course)
@@ -89,7 +89,7 @@ class CourseInfoView(LoginRequiredMixin,View):
         user_courses = UserCourse.objects.filter(course=course)
         user_ids = [user_course.user.id for user_course in user_courses]
         all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
-        #取出所有课程id
+        # 取出所有课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该用户学习其他的所有课程
         relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]

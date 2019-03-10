@@ -46,6 +46,7 @@ urlpatterns = [
     # 个人中心url配置
     path(r'users/', include('users.urls',namespace='users')),
     path('logout/',LogoutView.as_view(),name='logout'),
+    path(r'ueditor/',include('DjangoUeditor.urls' )),
 ]
 
 # 全局404页面配置
