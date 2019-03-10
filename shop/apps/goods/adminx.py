@@ -3,30 +3,47 @@ __date__ = '2019/1/26 15:34'
 
 import xadmin
 
-from .models import ShoppingCart, OrderInfo, OrderGoods
+from .models import GoodsCategory, GoodsCategoryBrand, Goods, GoodsImage, Banner
 
 
-class ShoppingCartAdmin:
-    list_display = ['user', 'goods', 'goods_num', 'add_time']
-    search_fields = ['user', 'goods', 'goods_num']
-    list_filter = ['user', 'goods', 'goods_num', 'add_time']
+class GoodsCategoryAdmin:
+    list_display = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab', 'add_time']
+    search_fields = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab']
+    list_filter = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab', 'add_time']
 
 
-class OrderInfoAdmin:
-    list_display = ['user', 'order_sn', 'trade_no', 'pay_status', 'post_script', 'order_mount', 'pay_time', 'address',
-                    'signer_name', 'signer_mobile', 'add_time']
-    search_fields = ['user', 'order_sn', 'trade_no', 'pay_status', 'post_script', 'order_mount', 'pay_time', 'address',
-                     'signer_name', 'signer_mobile']
-    list_filter = ['user', 'order_sn', 'trade_no', 'pay_status', 'post_script', 'order_mount', 'pay_time', 'address',
-                   'signer_name', 'signer_mobile', 'add_time']
+class GoodsCategoryBrandAdmin:
+    list_display = ['category', 'name', 'desc', 'image', 'add_time']
+    search_fields = ['category', 'name', 'desc', 'image']
+    list_filter = ['category', 'name', 'desc', 'image', 'add_time']
 
 
-class OrderGoodsAdmin:
-    list_display = ['order', 'goods', 'goods_num', 'add_time']
-    search_fields = ['order', 'goods', 'goods_num']
-    list_filter = ['order', 'goods', 'goods_num', 'add_time']
+class GoodsAdmin:
+    list_display = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
+                    'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot',
+                    'add_time']
+    search_fields = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
+                     'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot']
+    list_filter = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
+                   'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot',
+                   'add_time']
+    style_fields = {'goods_desc': 'ueditor'}
 
 
-xadmin.site.register(ShoppingCart, ShoppingCartAdmin)
-xadmin.site.register(OrderInfo, OrderInfoAdmin)
-xadmin.site.register(OrderGoods, OrderGoodsAdmin)
+class GoodsImageAdmin:
+    list_display = ['goods', 'image', 'image_url', 'add_time']
+    search_fields = ['goods', 'image', 'image_url']
+    list_filter = ['goods', 'image', 'image_url', 'add_time']
+
+
+class BannerAdmin:
+    list_display = ['goods', 'image', 'index', 'add_time']
+    search_fields = ['goods', 'image', 'index']
+    list_filter = ['goods', 'image', 'index', 'add_time']
+
+
+xadmin.site.register(GoodsCategory, GoodsCategoryAdmin)
+xadmin.site.register(GoodsCategoryBrand, GoodsCategoryBrandAdmin)
+xadmin.site.register(Goods, GoodsAdmin)
+xadmin.site.register(GoodsImage, GoodsImageAdmin)
+xadmin.site.register(Banner, BannerAdmin)

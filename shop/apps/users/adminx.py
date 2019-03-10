@@ -4,8 +4,7 @@ __date__ = '2019/1/26 15:34'
 import xadmin
 from xadmin import views
 
-from .models import EmailVerifyRecord
-from .models import Banner
+from .models import VerifyCode
 
 
 class BaseSetting():
@@ -19,20 +18,13 @@ class GlobalSetting():
     menu_style = 'accordion'
 
 
-class EmailVerifyRecordAdmin():
-    list_display = ['code','email','send_type','send_time']
-    search_fields = ['code','email','send_type']
-    list_filter = ['code','email','send_type','send_time']
+class VerifyCodeAdmin():
+    list_display = ['code', 'mobile', 'add_time']
+    search_fields = ['code', 'mobile']
+    list_filter = ['code', 'mobile', 'add_time']
     # model_icon = 'fa fa-group'
 
 
-class BannerAdmin():
-    list_display = ['title', 'image', 'url', 'index','add_time']
-    search_fields = ['title', 'image', 'url', 'index']
-    list_filter = ['title', 'image', 'url', 'index','add_time']
-
-
-xadmin.site.register(EmailVerifyRecord,EmailVerifyRecordAdmin)
-xadmin.site.register(Banner,BannerAdmin)
+xadmin.site.register(VerifyCode,VerifyCodeAdmin)
 xadmin.site.register(views.BaseAdminView,BaseSetting)
 xadmin.site.register(views.CommAdminView,GlobalSetting)
