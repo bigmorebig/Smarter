@@ -1,5 +1,4 @@
 import sys
-sys.path.append('')
 from manage_data.exract_excel import ExtractExcel
 from manage_data.Run_Request import Run_Request
 from util.operation_excel import OperationExcel
@@ -10,8 +9,10 @@ from util.common import Common
 import zipfile
 from manage_data.depend_data import DependData
 import json
+sys.path.append('')
 
-class Run():
+
+class Run:
     def __init__(self):
         self.data = ExtractExcel()
         self.request = Run_Request()
