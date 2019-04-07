@@ -8,7 +8,7 @@ from .models import GoodsCategory, GoodsCategoryBrand, Goods, GoodsImage, Banner
 
 class GoodsCategoryAdmin:
     list_display = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab', 'add_time']
-    search_fields = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab']
+    search_fields = ['name', 'code', 'desc', 'category_type', 'parent_category' 'is_tab']
     list_filter = ['name', 'code', 'desc', 'category_type', 'parent_category', 'is_tab', 'add_time']
 
 
@@ -22,8 +22,7 @@ class GoodsAdmin:
     list_display = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
                     'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot',
                     'add_time']
-    search_fields = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
-                     'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot']
+    search_fields = ['name']
     list_filter = ['category', 'goods_sn', 'name', 'click_num', 'sold_num', 'fav_num', 'goods_num', 'market_price',
                    'shop_price', 'goods_brief', 'goods_desc', 'ship_free', 'goods_front_image', 'is_new', 'is_hot',
                    'add_time']
@@ -31,9 +30,9 @@ class GoodsAdmin:
 
 
 class GoodsImageAdmin:
-    list_display = ['goods', 'image', 'image_url', 'add_time']
-    search_fields = ['goods', 'image', 'image_url']
-    list_filter = ['goods', 'image', 'image_url', 'add_time']
+    list_display = ['goods', 'image', 'add_time']
+    search_fields = ['goods', 'image']
+    list_filter = ['goods', 'image', 'add_time']
 
 
 class BannerAdmin:

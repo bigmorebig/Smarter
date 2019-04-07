@@ -13,7 +13,7 @@ class BaseSetting():
 
 
 class GlobalSetting():
-    site_title = '胖胖后台管理系统'
+    site_title = '猪头电商管理系统'
     site_footer = '胖胖的网站'
     menu_style = 'accordion'
 

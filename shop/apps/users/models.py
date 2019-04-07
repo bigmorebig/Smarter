@@ -18,6 +18,9 @@ class UserProfile(AbstractUser):
         verbose_name = '用户'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class VerifyCode(models.Model):
     # 验证码
